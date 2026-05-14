@@ -1,4 +1,5 @@
 cbt_backend/.venv
 cbt_backend.zip
+cbt_frontend.zip
 *migrations/
 *__pycache__/

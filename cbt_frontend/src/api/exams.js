@@ -1,0 +1,11 @@
+import api from './axios'
+export const getQuestions    = (params) => api.get('/exams/questions/', { params })
+export const createQuestion  = (data)   => api.post('/exams/questions/', data)
+export const updateQuestion  = (id, d)  => api.patch(`/exams/questions/${id}/`, d)
+export const deleteQuestion  = (id)     => api.delete(`/exams/questions/${id}/`)
+export const getExams        = (params) => api.get('/exams/exams/', { params })
+export const createExam      = (data)   => api.post('/exams/exams/', data)
+export const updateExam      = (id, d)  => api.patch(`/exams/exams/${id}/`, d)
+export const deleteExam      = (id)     => api.delete(`/exams/exams/${id}/`)
+export const getExamQuestions= (id)     => api.get(`/exams/exams/${id}/questions/`)
+export const addExamQuestion = (id, d)  => api.post(`/exams/exams/${id}/add-question/`, d)
