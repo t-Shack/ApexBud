@@ -3,3 +3,4 @@ cbt_backend.zip
 cbt_frontend.zip
 *migrations/
 *__pycache__/
+*node_modules/
