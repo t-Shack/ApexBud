@@ -56,8 +56,8 @@ export default function ExamRoom() {
     try {
       const payload = {
         answers: questions.map(q => ({
-          question_id:        q.id,
-          selected_option_id: answers[q.id] ?? null,
+          question_id:        q.question_id,
+          selected_option_id: answers[q.question_id] ?? null,
         }))
       }
       await submitExam(session.session_id, payload)
@@ -108,11 +108,11 @@ export default function ExamRoom() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {q?.options?.map((opt, i) => {
-            const selected = answers[q.id] === opt.id
+            const selected = answers[q.question_id] === opt.id
             const letter   = ['A','B','C','D'][i]
             return (
               <button key={opt.id} className={selected ? 'option-selected' : 'option-default'}
-                onClick={() => handleSelect(q.id, opt.id)}>
+                onClick={() => handleSelect(q.question_id, opt.id)}>
                 <span style={{ width: '1.75rem', height: '1.75rem', borderRadius: '0.375rem', border: `2px solid ${selected ? 'rgba(255,255,255,.4)' : '#E2E8F0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.8rem', flexShrink: 0, background: selected ? 'rgba(255,255,255,.15)' : 'transparent' }}>
                   {letter}
                 </span>
@@ -132,8 +132,8 @@ export default function ExamRoom() {
           {questions.map((qn, i) => (
             <button key={qn.id} onClick={() => setCurrent(i)}
               style={{ width: '2rem', height: '2rem', borderRadius: '0.375rem', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.75rem', transition: 'all .15s',
-                background: i === current ? '#0F172A' : answers[qn.id] ? '#ECFDF5' : '#F1F5F9',
-                color:      i === current ? 'white'   : answers[qn.id] ? '#059669' : '#94A3B8',
+                background: i === current ? '#0F172A' : answers[qn.question_id] ? '#ECFDF5' : '#F1F5F9',
+                color:      i === current ? 'white'   : answers[qn.question_id] ? '#059669' : '#94A3B8',
               }}>{i + 1}</button>
           ))}
         </div>

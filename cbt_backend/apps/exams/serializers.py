@@ -52,14 +52,15 @@ class ExamQuestionStaffSerializer(serializers.ModelSerializer):
 
 
 class ExamQuestionStudentSerializer(serializers.ModelSerializer):
-    """Student: marks field is EXCLUDED."""
+    """Student: marks EXCLUDED. question_id exposed for answer submission."""
+    question_id   = serializers.UUIDField(source='question.id', read_only=True)
     question_text = serializers.CharField(source='question.question_text', read_only=True)
     question_type = serializers.CharField(source='question.question_type', read_only=True)
     options       = OptionStudentSerializer(source='question.options', many=True, read_only=True)
 
     class Meta:
         model  = ExamQuestion
-        fields = ['id', 'order', 'question_text', 'question_type', 'options']
+        fields = ['id', 'question_id', 'order', 'question_text', 'question_type', 'options']
 
 
 class AddExamQuestionSerializer(serializers.ModelSerializer):

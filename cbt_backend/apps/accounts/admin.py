@@ -35,20 +35,6 @@ class UserAdmin(BaseUserAdmin):
     )
 
 
-class StudentInline(admin.StackedInline):
-    model      = Student
-    extra      = 0
-    fields     = ['reg_number', 'student_class']
-    can_delete = False
-
-
-class TeacherInline(admin.StackedInline):
-    model      = Teacher
-    extra      = 0
-    fields     = ['staff_id']
-    can_delete = False
-
-
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     list_display   = ['reg_number', 'get_full_name', 'student_class', 'created_at']

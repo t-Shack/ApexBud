@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import LoginView, StudentViewSet, TeacherViewSet
+from .views import StudentViewSet, TeacherViewSet
 
 router = DefaultRouter()
 router.register('students', StudentViewSet, basename='students')
