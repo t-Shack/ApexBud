@@ -81,6 +81,13 @@ export default function ExamRoom() {
   const answered = Object.keys(answers).length
   const urgent   = timeLeft !== null && timeLeft < 300  // < 5 min
 
+  if (questions.length === 0) return (
+    <div style={{ textAlign: 'center', padding: '4rem', color: '#64748B' }}>
+      <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>This exam has no questions yet.</p>
+      <p>Please contact your teacher.</p>
+    </div>
+  )
+
   return (
     <div>
       {/* Header bar */}
