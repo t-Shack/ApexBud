@@ -21,9 +21,10 @@ export default function ExamRoom() {
 
   // Start exam on mount
   useEffect(() => {
-    startExam(id).then(data => {
+    startExam(id).then(response => {
+      const data = response.data
       setSession(data)
-      setQuestions(data.questions)
+      setQuestions(data.questions || [])
       setTimeLeft(data.duration_minutes * 60)
     }).catch(() => {
       toast.error('Could not start exam.'); navigate('/student')
@@ -76,17 +77,17 @@ export default function ExamRoom() {
       <p style={{ color: '#64748B' }}>Loading exam…</p>
     </div>
   )
-
-  const q        = questions[current]
-  const answered = Object.keys(answers).length
-  const urgent   = timeLeft !== null && timeLeft < 300  // < 5 min
-
+  
   if (questions.length === 0) return (
     <div style={{ textAlign: 'center', padding: '4rem', color: '#64748B' }}>
       <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>This exam has no questions yet.</p>
       <p>Please contact your teacher.</p>
     </div>
   )
+
+  const q        = questions[current]
+  const answered = Object.keys(answers).length
+  const urgent   = timeLeft !== null && timeLeft < 300  // < 5 min
 
   return (
     <div>
@@ -118,7 +119,7 @@ export default function ExamRoom() {
             const selected = answers[q.question_id] === opt.id
             const letter   = ['A','B','C','D'][i]
             return (
-              <button key={opt.id} className={selected ? 'option-selected' : 'option-default'}
+              <button key={opt.id} className={selected ? 'option-selected' : 'option-default'} style={{display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '0.75rem', padding: '1rem', borderRadius: '0.5rem'}}
                 onClick={() => handleSelect(q.question_id, opt.id)}>
                 <span style={{ width: '1.75rem', height: '1.75rem', borderRadius: '0.375rem', border: `2px solid ${selected ? 'rgba(255,255,255,.4)' : '#E2E8F0'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.8rem', flexShrink: 0, background: selected ? 'rgba(255,255,255,.15)' : 'transparent' }}>
                   {letter}
